@@ -52,6 +52,9 @@
  - debug: 
      msg: "this is my vms register {{ vms }} "
 
+ - debug: 
+     msg: "this is my vms register {{ vms.id }} "
+
  - name: create the DB disk
    ovirt_disks: 
      auth: "{{ ovirt_auth }}"

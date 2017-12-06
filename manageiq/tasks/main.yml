@@ -2,7 +2,8 @@
 
 - name: Lookup CloudForms VMs via uid_ems
   uri:
-    url: "https://{{ cfme_hostname }}/api/vms?filter[]=uid_ems={{ item.id }}&expand=resources"
+#    url: "https://{{ cfme_hostname }}/api/vms?filter[]=uid_ems={{ item.id }}&expand=resources"
+    url: "https://{{ cfme_hostname }}/api/vms?filter[]=uid_ems={{ vms.id }}&expand=resources"
     validate_certs: false
     method: GET
     user: "{{ cfme_username }}"
@@ -18,7 +19,7 @@
   until: uri_lookup_vms.json.subcount > 0
   retries: 10
   delay: 10
-  with_items: "{{ vms }}"
+#  with_items: "{{ vms }}"
 #  with_items: "{{ vms.results }}" because of single vm
 
 - debug: var=uri_lookup_vms
