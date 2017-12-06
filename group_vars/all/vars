@@ -30,6 +30,6 @@ ocppass: redhat
 ipa_username: ldomb	
 ipa_password: Redhat1!
 ipa_hostname: idm1.demo.rdu.salab.redhat.com
-cfme_hostname: 10.11.164.120
+cfme_hostname: 10.11.164.157
 cfme_username: admin
 cfme_password: "{{ vault_cfme_password }}"
