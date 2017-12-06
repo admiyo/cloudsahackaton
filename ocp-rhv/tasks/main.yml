@@ -47,6 +47,7 @@
 #              DNS1="{{ dns }}"
 #              DOMAIN="home.lab"
 #            path: /etc/sysconfig/network-scripts/ifcfg-eth0
+   register: vms
 
  - name: create the DB disk
    ovirt_disks: 
