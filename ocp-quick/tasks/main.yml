@@ -8,49 +8,49 @@
   - name: Disable all repos
     command: subscription-manager repos --disable "*"
 
-#  - name: echo idm
-#    lineinfile:
-#      path: /etc/hosts
-#      line: '10.11.165.151 idm1.demo.rdu.salab.redhat.com idm1'
+  - name: echo idm
+    lineinfile:
+      path: /etc/hosts
+      line: '10.11.165.151 idm1.demo.rdu.salab.redhat.com idm1'
 
-#  - name: Generate IPA Session Cookie
-#    uri:
-#      url: "https://{{ ipa_hostname }}/ipa/session/login_password"
-#      validate_certs: no
-#      method: POST
-#      status_code: 200
-#      headers:
-#        Content-Type: "application/x-www-form-urlencoded"
-#        Accept: "text/plain"
-#        Referer: "https://{{ ipa_hostname }}/ipa"
-#      body: "user={{ ipa_username }}&password={{ ipa_password }}"
-#    register: session
+  - name: Generate IPA Session Cookie
+    uri:
+      url: "https://{{ ipa_hostname }}/ipa/session/login_password"
+      validate_certs: no
+      method: POST
+      status_code: 200
+      headers:
+        Content-Type: "application/x-www-form-urlencoded"
+        Accept: "text/plain"
+        Referer: "https://{{ ipa_hostname }}/ipa"
+      body: "user={{ ipa_username }}&password={{ ipa_password }}"
+    register: session
 
-#  - debug: var=session
-#    when: debug is defined
+  - debug: var=session
+    when: debug is defined
 
-#  - name: Add Host from IPA & Update DNS
-#    uri:
-#      url: "https://{{ ipa_hostname }}/ipa/session/json"
-#      validate_certs: no
-#      method: POST
-#      status_code: 200
-#      headers:
-#        Cookie: "{{ session.set_cookie }}"
-#        Accept: "application/json"
-#        Referer: "https://{{ ipa_hostname }}/ipa"
-#      body:
-#        method: dnsrecord_add
-#        params:
-#        - - demo.rdu.salab.redhat.com.
-#          - "*.apps{{ hostvars[groups['master'][0]]['uuidmaster'] }}"
-#        - a_part_ip_address: "{{ hostvars[groups['master'][0]]['ansible_default_ipv4']['address'] }}"
-#      body_format: json
-#    register: wildcard_dns_add
-#    when: "'master' in group_names"
+  - name: Add Host from IPA & Update DNS
+    uri:
+      url: "https://{{ ipa_hostname }}/ipa/session/json"
+      validate_certs: no
+      method: POST
+      status_code: 200
+      headers:
+        Cookie: "{{ session.set_cookie }}"
+        Accept: "application/json"
+        Referer: "https://{{ ipa_hostname }}/ipa"
+      body:
+        method: dnsrecord_add
+        params:
+        - - demo.rdu.salab.redhat.com.
+          - "*.apps{{ hostvars[groups['master'][0]]['uuidmaster'] }}"
+        - a_part_ip_address: "{{ hostvars[groups['master'][0]]['ansible_default_ipv4']['address'] }}"
+      body_format: json
+    register: wildcard_dns_add
+    when: "'master' in group_names"
 
-#  - debug: var=wildcard_dns_add
-#    when: debug is defined
+  - debug: var=wildcard_dns_add
+    when: debug is defined
 
 
   - name: Enable necessary repos
