@@ -1,4 +1,5 @@
 ---
+
 - name: Lookup CloudForms VMs via uid_ems
   uri:
     url: "https://{{ cfme_hostname }}/api/vms?filter[]=uid_ems={{ item.id }}&expand=resources"
