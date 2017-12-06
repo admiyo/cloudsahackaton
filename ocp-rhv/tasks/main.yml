@@ -49,8 +49,8 @@
 #            path: /etc/sysconfig/network-scripts/ifcfg-eth0
    register: vms
 
- - debug: var=vms
-   when: debug is defined
+ - debug: 
+     msg: "this is my vms register {{ vms }} "
 
  - name: create the DB disk
    ovirt_disks: 
