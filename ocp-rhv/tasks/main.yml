@@ -31,20 +31,22 @@
        host_name: "{{ vm_name }}-{{ uuid_list.stdout }}"
        dns_servers: "{{ dns }}"
        custom_script: |
-         write_files:
-          - content: |
-              DEVICE=eth0
-              IPADDR="{{ ipaddr }}"
-              NETMASK="{{ netmask }}"
-              ONBOOT=yes
-              TYPE=Ethernet
-              USERCTL=no
-              NM_CONTROLLED=no
-              GATEWAY="{{ gateway }}"
-              DNS1="{{ dns }}"
-              DOMAIN="home.lab"
-            path: /etc/sysconfig/network-scripts/ifcfg-eth0
-            permissions: '0644'
+         runcmd:
+          - systemctl stop firewalld
+          - systemctl disable firewalld
+#         write_files:
+#          - content: |
+#              DEVICE=eth0
+#              IPADDR="{{ ipaddr }}"
+#              NETMASK="{{ netmask }}"
+#              ONBOOT=yes
+#              TYPE=Ethernet
+#              USERCTL=no
+#              NM_CONTROLLED=no
+#              GATEWAY="{{ gateway }}"
+#              DNS1="{{ dns }}"
+#              DOMAIN="home.lab"
+#            path: /etc/sysconfig/network-scripts/ifcfg-eth0
 
  - name: create the DB disk
    ovirt_disks: 
@@ -56,6 +58,24 @@
      format: cow
      storage_domain: "{{ datastore }}" 
 
+ - name: Get VMs from datacenter X
+   ovirt_vms_facts:
+     fetch_nested: true
+     pattern: name={{ vm_name }}-{{ uuid_list.stdout }} and datacenter=RDU-RHS
+     auth: "{{ovirt_auth }}"
+ - debug:
+     msg: "my list {{ ovirt_vms | map(attribute='fqdn') | list }}"
+ 
+ - set_fact:
+     when: master
+     masterip: "{{ ovirt_vms | map(attribute='fqdn') | list }}"
+
+ - set_fact:
+     when: node
+     nodeip: "{{ ovirt_vms | map(attribute='fqdn') | list }}"
+ 
+ - debug:
+     var:  masterip
 
  - ovirt_vms_facts:
      auth: "{{ ovirt_auth }}"
@@ -65,15 +85,16 @@
 
  - name: add master server to inventory
    add_host:
-     hostname: "{{ ipaddr }}"
+     hostname: "{{ masterip[0] }}"
      ansible_ssh_user: root
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
+     uuidmaster: "{{ uuid_list.stdout }}"
      groupname: master
    when: master
 
  - name: add nodes to inventory
    add_host:
-     hostname: "{{ ipaddr }}"
+     hostname: "{{ nodeip[0] }}"
      ansible_ssh_user: root
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
      groupname: node

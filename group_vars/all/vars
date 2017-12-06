@@ -1,0 +1,35 @@
+---
+ssh_user: "{{ vault_ssh_user }}"
+ssh_pass: "{{ vault_cf_ssh_pass }}"
+vm_name: ocp-master-ldo
+db_size: 20
+db_vol_name: docker_vol
+master1: 
+node1:
+node2:
+netmask:
+gateway:
+domain:
+dns:
+cf_ssh_pass: "{{ vault_cf_ssh_pass }}"
+cf_db_dev: /dev/sdb
+#rhv
+template_name: CLOUDSA-template-rhel74-ldo
+datastore: synology
+cluster: RHS-Hypervisors
+rhvm_addr: "{{ vault_rhvm_addr }}"
+rhv_user: "{{ vault_rhv_user }}"
+rhv_pass: "{{ vault_rhv_pass }}"
+network_name: rhevm
+#rhsm
+rhn_user: "{{ vault_rhn_user }}"
+rhn_pass: "{{ vault_rhn_pass }}"
+rhn_pool: 8a85f9815afc7d91015afcf7e8e70b8a
+ocpuser: bob
+ocppass: redhat
+ipa_username: ldomb	
+ipa_password: Redhat1!
+ipa_hostname: idm1.demo.rdu.salab.redhat.com
+cfme_hostname: 10.11.164.120
+cfme_username: admin
+cfme_password: "{{ vault_cfme_password }}"
