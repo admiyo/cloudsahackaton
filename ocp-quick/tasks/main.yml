@@ -13,6 +13,7 @@
       username: "{{ rhn_user }}"
       password: "{{ rhn_pass }}"
       consumer_name: "{{ ansible_fqdn }}"
+    ignore_errors: yes
 
   - name: Attach subscription
     shell: subscription-manager attach --pool="{{ rhn_pool }}"
