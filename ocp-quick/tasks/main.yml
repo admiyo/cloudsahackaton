@@ -2,11 +2,18 @@
   - name: Register with Red Hat Subscription Manager
     command: subscription-manager register --username={{ rhn_user }} --password={{ rhn_pass }} --force
 
+  - name: "RHN | registering system with RHN"
+    redhat_subscription:
+      state: "present"
+      username: "{{ rhn_user }}"
+      password: "{{ rhn_pass }}"
+      consumer_name: "{{ ansible_fqdn }}"
+
   - name: Attach subscription
-    command: subscription-manager attach --pool="{{ rhn_pool }}"
+    shell: subscription-manager attach --pool="{{ rhn_pool }}"
 
   - name: Disable all repos
-    command: subscription-manager repos --disable "*"
+    shell: subscription-manager repos --disable "*"
 
   - name: echo idm
     lineinfile:
