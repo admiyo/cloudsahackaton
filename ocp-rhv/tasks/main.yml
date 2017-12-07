@@ -98,15 +98,15 @@
      ansible_ssh_user: root
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
      uuidmaster: "{{ uuid_list.stdout }}"
-     mastername: "{{ masterip }}"
+     mastername: "{{ masterip[0] }}"
      groupname: master
    when: master
 
  - name: add nodes to inventory
    add_host:
-     hostname: "{{ nodeip[0] }}"
+     hostname: "{{ nodeip[1] }}"
      ansible_ssh_user: root
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
-     nodename: "{{ nodeip }}"
+     nodename: "{{ nodeip[1] }}"
      groupname: node
    when: node
