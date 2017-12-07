@@ -77,12 +77,14 @@
      when: master
      masterip: "{{ ovirt_vms | map(attribute='fqdn') | list }}"
 
+ - debug:
+     msg: "this is the masterip {{  masterip }} "
+
  - set_fact:
      when: node
      nodeip: "{{ ovirt_vms | map(attribute='fqdn') | list }}"
- 
  - debug:
-     var:  masterip
+     msg: "this is the nodeip {{  masterip }} "
 
  - ovirt_vms_facts:
      auth: "{{ ovirt_auth }}"
