@@ -4,19 +4,12 @@
   - debug:
       msg: "this is the nodename {{ hostvars[groups['node'][0]]['ansible_hostname'] }}" 
 
-  - name: Register with Red Hat Subscription Manager
-    command: subscription-manager register --username={{ rhn_user }} --password={{ rhn_pass }} --force
-
   - name: "RHN | registering system with RHN"
     redhat_subscription:
       state: "present"
       username: "{{ rhn_user }}"
       password: "{{ rhn_pass }}"
-      consumer_name: "{{ ansible_fqdn }}"
-    ignore_errors: yes
-
-  - name: Attach subscription
-    shell: subscription-manager attach --pool="{{ rhn_pool }}"
+      pool: "{{ rhn_pool }}"
 
   - name: Disable all repos
     shell: subscription-manager repos --disable "*"
