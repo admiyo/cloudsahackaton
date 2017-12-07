@@ -17,7 +17,7 @@
     body_format: json
   register: uri_lookup_vms
   until: uri_lookup_vms.json.subcount > 0
-  retries: 10
+  retries: 20
   delay: 10
 #  with_items: "{{ vms }}"
 #  with_items: "{{ vms.results }}" because of single vm
