@@ -109,4 +109,4 @@
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
      nodename: "{{ nodeip[1] }}"
      groupname: node
-   when: node
+   when: not master
