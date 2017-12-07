@@ -104,9 +104,9 @@
 
  - name: add nodes to inventory
    add_host:
-     hostname: "{{ nodeip[1] }}"
+     hostname: "{{ nodeip[0] }}"
      ansible_ssh_user: root
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
-     nodename: "{{ nodeip[1] }}"
+     nodename: "{{ nodeip[0] }}"
      groupname: node
    when: not master
