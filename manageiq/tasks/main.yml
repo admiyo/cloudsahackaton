@@ -53,10 +53,9 @@
     status_code: 200
     body:
       action: add_resource
-      resource: "{ \"resource\": { \"href\": \"/api/vms/{{ item.json.resources[0].id }}\" } }"
+      resource: "{ \"resource\": { \"href\": \"/api/vms/{{ uri_lookup_vms.json.resources[0].id }}\" } }"
     body_format: json
   register: uri_add_vms
-  with_items: "{{ uri_lookup_vms.results }}"
 
 #- name: Add VMs to Service
 #  uri:
