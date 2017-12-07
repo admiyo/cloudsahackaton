@@ -4,8 +4,6 @@
   - debug:
       msg: "this is the nodename {{ hostvars[groups['node'][1]]['nodename'] }}" 
 
-  - debug:
-      msg: "this is the nodename {{ 
   - name: Register with Red Hat Subscription Manager
     command: subscription-manager register --username={{ rhn_user }} --password={{ rhn_pass }} --force
 
