@@ -107,6 +107,7 @@
      hostname: "{{ nodeip[0] }}"
      ansible_ssh_user: root
      ansible_ssh_pass: "{{ cf_ssh_pass }}"
+     uuidnode: "{{ uuid_list.stdout }}"
      nodename: "{{ nodeip[0] }}"
      groupname: node
    when: not master

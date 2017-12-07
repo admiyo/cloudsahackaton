@@ -49,8 +49,8 @@
         method: dnsrecord_add
         params:
         - - demo.rdu.salab.redhat.com.
-          - "*.apps{{ hostvars[groups['master'][0]]['uuidmaster'] }}"
-        - a_part_ip_address: "{{ hostvars[groups['master'][0]]['ansible_default_ipv4']['address'] }}"
+          - "*.apps{{ hostvars[groups['node'][0]]['uuidnode'] }}"
+        - a_part_ip_address: "{{ hostvars[groups['node'][0]]['ansible_default_ipv4']['address'] }}"
       body_format: json
     register: wildcard_dns_add
     when: "'master' in group_names"

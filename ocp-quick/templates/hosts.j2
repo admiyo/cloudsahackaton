@@ -11,7 +11,7 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 # If ansible_ssh_user is not root, ansible_become must be set to true
 ansible_become=true
-openshift_master_default_subdomain=apps{{ hostvars[groups['master'][0]]['uuidmaster'] }}.demo.rdu.salab.redhat.com
+openshift_master_default_subdomain=apps{{ hostvars[groups['node'][0]]['uuidnode'] }}.demo.rdu.salab.redhat.com
 
 openshift_deployment_type=openshift-enterprise
 
@@ -26,5 +26,5 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 
 # host group for nodes, includes region info
 [nodes]
-{{ hostvars[groups['master'][0]]['ansible_hostname'] }} openshift_node_labels="{'region': 'infra', 'zone': 'default'}" openshift_schedulable=true
-{{ hostvars[groups['node'][0]]['ansible_hostname'] }}  openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
+{{ hostvars[groups['master'][0]]['ansible_hostname'] }} 
+{{ hostvars[groups['node'][0]]['ansible_hostname'] }}  openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
