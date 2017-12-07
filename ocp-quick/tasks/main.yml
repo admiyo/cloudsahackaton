@@ -1,8 +1,8 @@
 ---
   - debug:
-      msg: "this is the mastername {{ hostvars[groups['master'][0]]['hostname'] }}" 
+      msg: "this is the mastername {{ hostvars[groups['master'][0]]['ansible_hostname'] }}" 
   - debug:
-      msg: "this is the nodename {{ hostvars[groups['node'][1]]['hostname'] }}" 
+      msg: "this is the nodename {{ hostvars[groups['node'][0]]['ansible_hostname'] }}" 
 
   - name: Register with Red Hat Subscription Manager
     command: subscription-manager register --username={{ rhn_user }} --password={{ rhn_pass }} --force

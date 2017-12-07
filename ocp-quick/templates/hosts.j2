@@ -19,12 +19,12 @@ openshift_deployment_type=openshift-enterprise
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
 [etcd]
-{{ hostvars[groups['master'][0]]['hostname'] }}
+{{ hostvars[groups['master'][0]]['ansible_hostname'] }}
 # host group for masters
 [masters]
-{{ hostvars[groups['master'][0]]['hostname'] }}
+{{ hostvars[groups['master'][0]]['ansible_hostname'] }}
 
 # host group for nodes, includes region info
 [nodes]
-{{ hostvars[groups['master'][0]]['hostname'] }} openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
-{{ hostvars[groups['node'][0]]['hostname'] }}  openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
+{{ hostvars[groups['master'][0]]['ansible_hostname'] }} openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
+{{ hostvars[groups['node'][0]]['ansible_hostname'] }}  openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
