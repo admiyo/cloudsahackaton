@@ -98,7 +98,7 @@
       Content-Type: "application/json"
     status_code: 200
     body:
-      name: "Bulk Request - Created on {{ today }}"
+      name: "deployocp {{ today }}"
     body_format: json
   register: uri_update_name
 
